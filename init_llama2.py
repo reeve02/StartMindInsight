@@ -53,6 +53,7 @@ from langchain import PromptTemplate, LLMChain
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from huggingface_hub import hf_hub_download
+from langchain.embeddings import LlamaCppEmbeddings
 
 template = """USER: {question}
 ASSISTANT: Let's work this out in a step by step way to be sure we have the right answer."""
@@ -74,6 +75,8 @@ llmLlama2 = LlamaCpp(
     callback_manager=callback_manager,
     verbose=True,
 )
+
+embeddingsllama2 = LlamaCppEmbeddings(model_path=model_path)
 
 llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
 
