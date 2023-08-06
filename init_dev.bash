@@ -13,6 +13,18 @@ apt install python3-pip -y
 
 apt install python3.11-distutils -y
 
+# gcc
+
+ apt install gcc-11 g++-11
+
+# pg install
+
+apt-get update && apt-get install apt-utils && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
+ #
+ ## install pg_config
+apt-get update && apt-get install wget ca-certificates -y && apt-get install -y gnupg2
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list'&& apt-get update && apt-get install postgresql postgresql-contrib -y
+
 apt update && apt install git -y && apt install unzip -y && apt install docker-compose -y && apt install postgresql -y
 
 git clone https://github.com/daviddhc20120601/chat-with-pdf.git && cd chat-with-pdf/
