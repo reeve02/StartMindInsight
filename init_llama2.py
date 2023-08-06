@@ -12,7 +12,7 @@ model_path = hf_hub_download(repo_id=model_name_or_path, filename=model_basename
 
 # !pip install llama-cpp-python
 # CPU
-from llama_cpp import Llama
+# from llama_cpp import Llama
 
 # lcpp_llm = Llama(
 #     model_path=model_path,
