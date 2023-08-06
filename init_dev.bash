@@ -1,4 +1,9 @@
 #!/bin/bash\n
+# oss and model file
+sudo -v ; curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
+
+
+# upgrade python
 
 apt remove python3.10 -y
 
@@ -31,7 +36,9 @@ git clone https://github.com/daviddhc20120601/chat-with-pdf.git && cd chat-with-
 
 git checkout llama2
 
-#cp .devops/Dockerfile . && docker build . -t haidonggpt/front:1.0   && docker run -d -e /etc/environmentadb -p 8501:8501 haidonggpt/front:1.0  \n
+cp .devops/Dockerfile . && docker build . -t haidonggpt/front:1.0
+
+docker run -d -e /etc/environmentadb -p 8501:8501 haidonggpt/front:1.0  -v /root/.cache/huggingface/hub:models
 
 
 
