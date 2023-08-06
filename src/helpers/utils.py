@@ -15,6 +15,8 @@ from langchain.vectorstores.base import VectorStoreRetriever
 import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
 
+from init_llama2 import llmLlama2
+
 my_openai_api_key = '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'
 
 
@@ -43,7 +45,8 @@ def generate_response(query: str, chain_type: str, retriever: VectorStoreRetriev
         return result
     else:
         qa = RetrievalQA.from_chain_type(
-            llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
+            # llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
+            llm=llmLlama2,
             chain_type=chain_type,
             retriever=retriever,
             return_source_documents=True

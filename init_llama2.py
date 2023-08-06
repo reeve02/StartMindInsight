@@ -14,10 +14,10 @@ model_path = hf_hub_download(repo_id=model_name_or_path, filename=model_basename
 # CPU
 from llama_cpp import Llama
 
-lcpp_llm = Llama(
-    model_path=model_path,
-    n_threads=64, # CPU cores
-    )
+# lcpp_llm = Llama(
+#     model_path=model_path,
+#     n_threads=64, # CPU cores
+#     )
 
 prompt = "Write a linear regression in python"
 prompt_template=f'''SYSTEM: You are a helpful, respectful and honest assistant. Always answer as helpfully.
@@ -27,26 +27,26 @@ USER: {prompt}
 ASSISTANT:
 '''
 
-response = lcpp_llm(
-    prompt=prompt_template,
-    max_tokens=256,
-    temperature=0.5,
-    top_p=0.95,
-    repeat_penalty=1.2,
-    top_k=50,
-    echo=True
-    )
+# response = lcpp_llm(
+#     prompt=prompt_template,
+#     max_tokens=256,
+#     temperature=0.5,
+#     top_p=0.95,
+#     repeat_penalty=1.2,
+#     top_k=50,
+#     echo=True
+#     )
 
-print(response["choices"][0]["text"])
+# print(response["choices"][0]["text"])
 
 # Inference with langchain
 
 # !pip -q install langchain
 
-lcpp_llm.reset()
-lcpp_llm.set_cache(None)
-lcpp_llm = None
-del lcpp_llm
+# lcpp_llm.reset()
+# lcpp_llm.set_cache(None)
+# lcpp_llm = None
+# del lcpp_llm
 
 from langchain.llms import LlamaCpp
 from langchain import PromptTemplate, LLMChain
@@ -66,7 +66,7 @@ n_gpu_layers = 40  # Change this value based on your model and your GPU VRAM poo
 n_batch = 512  # Should be between 1 and n_ctx, consider the amount of VRAM in your GPU.
 
 # Loading model,
-llm = LlamaCpp(
+llmLlama2 = LlamaCpp(
     model_path=model_path,
     max_tokens=1024,
     # n_gpu_layers=n_gpu_layers,
@@ -75,7 +75,7 @@ llm = LlamaCpp(
     verbose=True,
 )
 
-llm_chain = LLMChain(prompt=prompt, llm=llm)
+llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
 
 question = "Write a linear regression in python"
 
