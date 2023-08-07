@@ -10,3 +10,4 @@ streamlit-extras==0.2.7
 tiktoken==0.4.0
 huggingface_hub
 llama-cpp-python
+sentence_transformers

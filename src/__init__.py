@@ -13,7 +13,7 @@ def create_app(config_name):
                        page_icon='🤖', layout='centered', initial_sidebar_state='auto')
     st.header(cf.TITLE)
 
-    open_api_token_global = st.text_input('your openai token', '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')
+    open_api_token_global = st.text_input('your openai token', 'sk-IDOQ7C1GlnSOdWhahahahaBlbkFJP8wtjnQOsPtSlZTHlfft')
     st.write('The current chatgpt api token is', open_api_token_global)
 
     #  adbpg_user_input, adbpg_pwd_input
@@ -23,7 +23,7 @@ def create_app(config_name):
     conn_port = os.environ.get('PG_PORT', '5432')
     adbpg_database = os.environ.get('PG_DATABASE', 'aigcpostgres')
     adbpg_user = os.environ.get('PG_USER', 'aigcpostgres')
-    adbpg_passwd = os.environ.get('PG_PASSWORD', 'alibabacloud666')
+    adbpg_passwd = os.environ.get('PG_PASSWORD', 'alibabacloud666!')
 
     adbpg_host_input_global = st.text_input('your adbpg_host', conn_string)
     st.write('The current adbpg_host_input', adbpg_host_input_global)
