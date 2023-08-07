@@ -53,7 +53,7 @@ from langchain import PromptTemplate, LLMChain
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from huggingface_hub import hf_hub_download
-from langchain.embeddings import LlamaCppEmbeddings
+from langchain.embeddings import LlamaCppEmbeddings, HuggingFaceEmbeddings
 
 template = """USER: {question}
 ASSISTANT: Let's work this out in a step by step way to be sure we have the right answer."""
@@ -77,8 +77,11 @@ llmLlama2 = LlamaCpp(
 )
 
 embeddingsllama2 = LlamaCppEmbeddings(model_path=model_path)
+embeddings_model_name = "sentence-transformers/all-MiniLM-L6-v2"
+embeddings_minilm = HuggingFaceEmbeddings(model_name=embeddings_model_name)
 
 llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
+
 
 question = "Write a linear regression in python"
 

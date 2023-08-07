@@ -15,7 +15,7 @@ from langchain.vectorstores.base import VectorStoreRetriever
 import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
 
-from init_llama2 import llmLlama2, embeddingsllama2
+from init_llama2 import llmLlama2, embeddingsllama2, embeddings_minilm
 
 my_openai_api_key = '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'
 
@@ -80,7 +80,7 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     )
 
     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
-    embeddings = embeddingsllama2
+    embeddings = embeddings_minilm
 
     db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
