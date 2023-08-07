@@ -2,7 +2,7 @@ from langchain import LLMChain, PromptTemplate
 from torch import cuda, bfloat16
 import transformers
 
-model_id = 'daryl149/llama-2-7b-chat-hf'
+model_id = 'daryl149/llama-2-13b-chat-hf'
 
 device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
 
