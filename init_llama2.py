@@ -6,10 +6,10 @@ from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from huggingface_hub import hf_hub_download
 from langchain.embeddings import HuggingFaceInstructEmbeddings
-# from langchain.embeddings import LlamaCppEmbeddings, HuggingFaceEmbeddings, HuggingFaceInstructEmbeddings
+from langchain.embeddings import LlamaCppEmbeddings, HuggingFaceEmbeddings, HuggingFaceInstructEmbeddings
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+# from llama2_api_pai import llama2_pai_client
 
-from llama2_api_pai import llama2_pai_client
 
 # For download the models
 # !pip install huggingface_hub
