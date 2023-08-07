@@ -69,7 +69,7 @@ n_batch = 512  # Should be between 1 and n_ctx, consider the amount of VRAM in y
 # Loading model,
 llmLlama2 = LlamaCpp(
     model_path=model_path,
-    max_tokens=1024,
+    max_tokens=1024*16,
     # n_gpu_layers=n_gpu_layers,
     # n_batch=n_batch,
     callback_manager=callback_manager,
@@ -82,4 +82,4 @@ llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
 
 question = "Write a linear regression in python"
 
-llm_chain.run(question)
+# llm_chain.run(question)
