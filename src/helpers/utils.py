@@ -15,7 +15,7 @@ from langchain.vectorstores.base import VectorStoreRetriever
 import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
 
-from init_llama2 import llmLlama2, embeddingsllama2
+from init_llama2_medium import llmLlama2, embeddingsllama2
 
 my_openai_api_key = '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'
 

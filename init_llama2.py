@@ -56,11 +56,8 @@ callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 model_repo = 'meta-llama/Llama-2-7b-chat-hf'
 # Loading model,
-hf_auth = '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'
-model_config = transformers.AutoConfig.from_pretrained(
-    model_repo,
-    use_auth_token=hf_auth
-)
+
+
 llmLlama2 = AutoModelForCausalLM.from_pretrained(
             model_repo,
             # load_in_4bit=True,
@@ -68,9 +65,10 @@ llmLlama2 = AutoModelForCausalLM.from_pretrained(
             torch_dtype=torch.float16,
             # low_cpu_mem_usage=True,
             trust_remote_code=True,
-            use_auth_token=hf_auth
             )
 # max_len = 8192
+
+
 
 embeddings_model_name = "sentence-transformers/all-mpnet-base-v2"
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name = embeddings_model_name,
