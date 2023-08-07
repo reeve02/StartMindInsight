@@ -2,7 +2,7 @@ from langchain import LLMChain, PromptTemplate
 from torch import cuda, bfloat16
 import transformers
 
-model_id = 'meta-llama/Llama-2-7b-chat-hf'
+model_id = 'TheBloke/Llama-2-13B-chat-GGML'
 
 device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
 
@@ -16,7 +16,7 @@ bnb_config = transformers.BitsAndBytesConfig(
 )
 
 # begin initializing HF items, you need an access token
-hf_auth = '<add your access token here>'
+hf_auth = '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'
 model_config = transformers.AutoConfig.from_pretrained(
     model_id,
     use_auth_token=hf_auth
