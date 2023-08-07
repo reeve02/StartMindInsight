@@ -1,13 +1,27 @@
+# from langchain.llms import LlamaCpp
+import torch
+from langchain import PromptTemplate, LLMChain
+from langchain.callbacks.manager import CallbackManager
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from huggingface_hub import hf_hub_download
+from langchain.embeddings import HuggingFaceInstructEmbeddings
+# from langchain.embeddings import LlamaCppEmbeddings, HuggingFaceEmbeddings, HuggingFaceInstructEmbeddings
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+
+from llama2_api_pai import llama2_pai_client
+
 # For download the models
 # !pip install huggingface_hub
 
-model_name_or_path = "TheBloke/Llama-2-13B-chat-GGML"
-model_basename = "llama-2-13b-chat.ggmlv3.q5_1.bin" # the model is in bin format
+# # model_name_or_path = "TheBloke/Llama-2-13B-chat-GGML"
+# # model_basename = "llama-2-13b-chat.ggmlv3.q5_1.bin" # the model is in bin format
+# model_name_or_path = "TheBloke/Llama-2-7B-GGML"
+# model_basename = "llama-2-7b.ggmlv3.q5_1.bin" # the model is in bin format
 
 
-from huggingface_hub import hf_hub_download
+# from huggingface_hub import hf_hub_download
 
-model_path = hf_hub_download(repo_id=model_name_or_path, filename=model_basename)
+# model_path = hf_hub_download(repo_id=model_name_or_path, filename=model_basename)
 # model_path= "/root/.cache/huggingface/hub/models--TheBloke--Llama-2-13B-chat-GGML"
 
 # !pip install llama-cpp-python
@@ -27,33 +41,9 @@ USER: {prompt}
 ASSISTANT:
 '''
 
-# response = lcpp_llm(
-#     prompt=prompt_template,
-#     max_tokens=256,
-#     temperature=0.5,
-#     top_p=0.95,
-#     repeat_penalty=1.2,
-#     top_k=50,
-#     echo=True
-#     )
 
-# print(response["choices"][0]["text"])
 
-# Inference with langchain
 
-# !pip -q install langchain
-
-# lcpp_llm.reset()
-# lcpp_llm.set_cache(None)
-# lcpp_llm = None
-# del lcpp_llm
-
-from langchain.llms import LlamaCpp
-from langchain import PromptTemplate, LLMChain
-from langchain.callbacks.manager import CallbackManager
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from huggingface_hub import hf_hub_download
-from langchain.embeddings import LlamaCppEmbeddings, HuggingFaceEmbeddings
 
 template = """USER: {question}
 ASSISTANT: Let's work this out in a step by step way to be sure we have the right answer."""
@@ -63,26 +53,31 @@ prompt = PromptTemplate(template=template, input_variables=["question"])
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 # Verbose is required to pass to the callback manager
 
-n_gpu_layers = 40  # Change this value based on your model and your GPU VRAM pool.
-n_batch = 512  # Should be between 1 and n_ctx, consider the amount of VRAM in your GPU.
-
+model_repo = 'daryl149/llama-2-13b-chat-hf'
 # Loading model,
-llmLlama2 = LlamaCpp(
-    model_path=model_path,
-    max_tokens=1024*16,
-    # n_gpu_layers=n_gpu_layers,
-    # n_batch=n_batch,
-    callback_manager=callback_manager,
-    verbose=True,
-)
+# llmLlama2 = AutoModelForCausalLM.from_pretrained(
+#             model_repo,
+#             load_in_4bit=True,
+#             device_map='auto',
+#             torch_dtype=torch.float16,
+#             # low_cpu_mem_usage=True,
+#             trust_remote_code=True
+#             )
 
-embeddingsllama2 = LlamaCppEmbeddings(model_path=model_path)
-embeddings_model_name = "sentence-transformers/all-MiniLM-L6-v2"
-embeddings_minilm = HuggingFaceEmbeddings(model_name=embeddings_model_name)
+max_len = 8192
 
-llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
+embeddings_model_name = "hkunlp/instructor-base"
+instructor_embeddings = HuggingFaceInstructEmbeddings(model_name = embeddings_model_name,
+                                                      model_kwargs = {"device": "cuda"})
 
+
+
+
+
+
+# llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
+llm_chain = LLMChain(prompt=prompt, llm=llama2_pai_client)
 
 question = "Write a linear regression in python"
 
-# llm_chain.run(question)
+llm_chain.run(question)
