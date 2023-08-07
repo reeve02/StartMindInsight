@@ -54,7 +54,7 @@ prompt = PromptTemplate(template=template, input_variables=["question"])
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 # Verbose is required to pass to the callback manager
 
-model_repo = 'meta-llama/Llama-2-7b-chat-hf'
+model_repo = 'TheBloke/Llama-2-13B-chat-GGML'
 # Loading model,
 
 
