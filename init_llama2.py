@@ -1,5 +1,6 @@
 # from langchain.llms import LlamaCpp
 import torch
+import transformers
 from langchain import PromptTemplate, LLMChain
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
@@ -53,29 +54,35 @@ prompt = PromptTemplate(template=template, input_variables=["question"])
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 # Verbose is required to pass to the callback manager
 
-model_repo = 'daryl149/llama-2-13b-chat-hf'
+model_repo = 'meta-llama/Llama-2-7b-chat-hf'
 # Loading model,
-# llmLlama2 = AutoModelForCausalLM.from_pretrained(
-#             model_repo,
-#             load_in_4bit=True,
-#             device_map='auto',
-#             torch_dtype=torch.float16,
-#             # low_cpu_mem_usage=True,
-#             trust_remote_code=True
-#             )
+hf_auth = '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'
+model_config = transformers.AutoConfig.from_pretrained(
+    model_repo,
+    use_auth_token=hf_auth
+)
+llmLlama2 = AutoModelForCausalLM.from_pretrained(
+            model_repo,
+            # load_in_4bit=True,
+            # device_map='auto',
+            torch_dtype=torch.float16,
+            # low_cpu_mem_usage=True,
+            trust_remote_code=True,
+            use_auth_token=hf_auth
+            )
 # max_len = 8192
 
-embeddings_model_name = "hkunlp/instructor-base"
+embeddings_model_name = "sentence-transformers/all-mpnet-base-v2"
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name = embeddings_model_name,
                                                       model_kwargs = {"device": "cuda"})
 
 
 
-llmLlama2 = llama2_pai_client
+# llmLlama2 = llama2_pai_client
 
 
-# llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
-llm_chain = LLMChain(prompt=prompt, llm=llama2_pai_client)
+llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
+# llm_chain = LLMChain(prompt=prompt, llm=llama2_pai_client)
 
 question = "Write a linear regression in python"
 
