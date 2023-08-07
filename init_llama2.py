@@ -63,8 +63,7 @@ model_repo = 'daryl149/llama-2-13b-chat-hf'
 #             # low_cpu_mem_usage=True,
 #             trust_remote_code=True
 #             )
-
-max_len = 8192
+# max_len = 8192
 
 embeddings_model_name = "hkunlp/instructor-base"
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name = embeddings_model_name,
@@ -72,7 +71,7 @@ instructor_embeddings = HuggingFaceInstructEmbeddings(model_name = embeddings_mo
 
 
 
-
+llmLlama2 = llama2_pai_client
 
 
 # llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
