@@ -151,7 +151,7 @@ def transform_chunks_into_embeddings(text, k , open_ai_token , adbpg_host_input,
     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
 chunks = transform_document_into_chunks(loader.load())
-retriever = transform_chunks_into_embeddings(chunks, number_of_relevant_chunk=NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
+retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
                   adbpg_host_input="gp-gs542mu10391602x7o-master.gpdbmaster.singapore.rds.aliyuncs.com", adbpg_port_input = "5432",
                   adbpg_database_input='aigcpostgres', adbpg_user_input='aigcpostgres', adbpg_pwd_input='alibabacloud666!')
 
