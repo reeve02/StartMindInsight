@@ -60,7 +60,7 @@ def generate_response(query: str, chain_type: str, retriever: VectorStoreRetriev
 def transform_document_into_chunks(document: list[Document]) -> list[Document]:
     """Transform document into chunks of {1000} tokens"""
     splitter = CharacterTextSplitter(
-        chunk_size=int(os.environ.get('CHUNK_SIZE', 500)),
+        chunk_size=int(os.environ.get('CHUNK_SIZE', 1000)),
         chunk_overlap=int(os.environ.get('CHUNK_OVERLAP', 0))
     )
     return splitter.split_documents(document)
