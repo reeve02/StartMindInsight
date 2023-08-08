@@ -110,7 +110,7 @@ question = "Write a linear regression in python"
 llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
 print(llm_chain.run(question))
 
-from src.helpers.utils import setup
+
 
 fp = "test.pdf"
 
