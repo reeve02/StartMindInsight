@@ -28,6 +28,7 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     config=model_config,
     quantization_config=bnb_config,
     device_map='auto',
+    load_in_8bit_fp32_cpu_offload=True,
     use_auth_token=hf_auth
 )
 
