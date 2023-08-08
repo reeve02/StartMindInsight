@@ -7,7 +7,7 @@ from langchain.vectorstores import AnalyticDB
 from torch import cuda, bfloat16
 import transformers
 
-model_id = 'daryl149/llama-2-7b-chat-hf'
+model_id = 'NousResearch/Nous-Hermes-llama-2-7b' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
 
 device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
 
