@@ -88,7 +88,7 @@ generate_text = transformers.pipeline(
 
 from langchain.embeddings import HuggingFaceEmbeddings
 
-embeddingsllama2 = HuggingFaceEmbeddings(model_name="deerslab/llama-7b-embeddings")
+embeddingsllama2 = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2") # working is sentence-transformers/all-mpnet-base-v2 , trying full length embedding
 
 from langchain.llms import HuggingFacePipeline
 
