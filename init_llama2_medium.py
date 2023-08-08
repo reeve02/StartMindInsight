@@ -104,4 +104,4 @@ prompt = PromptTemplate(template=template, input_variables=["question"])
 question = "Write a linear regression in python"
 llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
 
-llm_chain.run(question)
+print(llm_chain.run(question))
