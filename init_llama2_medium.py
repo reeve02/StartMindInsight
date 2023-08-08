@@ -76,10 +76,10 @@ generate_text = transformers.pipeline(
     repetition_penalty=1.1  # without this output begins repeating
 )
 
-from langchain.chains import ConversationalRetrievalChain
+# from langchain.chains import ConversationalRetrievalChain
 
-res = generate_text("Explain me the difference between Data Lakehouse and Data Warehouse.")
-print(res[0]["generated_text"])
+# res = generate_text("Explain me the difference between Data Lakehouse and Data Warehouse.")
+# print(res[0]["generated_text"])
 
 from langchain.embeddings import HuggingFaceEmbeddings
 
