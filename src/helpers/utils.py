@@ -5,6 +5,7 @@ from typing import Any
 import streamlit as st
 from langchain import OpenAI
 from langchain.chains import RetrievalQA
+from langchain.chains import ConversationalRetrievalChain
 from langchain.document_loaders import PyPDFLoader
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.schema import Document
@@ -44,14 +45,19 @@ def generate_response(query: str, chain_type: str, retriever: VectorStoreRetriev
         ]}
         return result
     else:
-        qa = RetrievalQA.from_chain_type(
-            # llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
-            llm=llmLlama2,
-            chain_type=chain_type,
-            retriever=retriever,
-            return_source_documents=True
-        )
-        result = qa({'query': query})
+        # qa = RetrievalQA.from_chain_type(
+        #     # llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
+        #     llm=llmLlama2,
+        #     chain_type=chain_type,
+        #     retriever=retriever,
+        #     return_source_documents=True
+        # )
+        # result = qa({'query': query})
+        # pprint.pprint(result)
+
+        qa = ConversationalRetrievalChain.from_llm(llmLlama2, retriever, return_source_documents=True)
+        # query = "who is david haidong chen"
+        result = qa({"question": query})
         pprint.pprint(result)
 
     return result
