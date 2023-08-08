@@ -170,7 +170,7 @@ retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, 
 from langchain.chains import ConversationalRetrievalChain
 
 chain = ConversationalRetrievalChain.from_llm(llmLlama2, retriever, return_source_documents=True)
-query = "What is Data lakehouse architecture in Databricks?"
+query = "who is david haidong chen"
 result = chain({"question": query})
 
 print(result['answer'])
