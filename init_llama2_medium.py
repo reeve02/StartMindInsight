@@ -155,16 +155,22 @@ retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, 
                   adbpg_host_input="gp-gs542mu10391602x7o-master.gpdbmaster.singapore.rds.aliyuncs.com", adbpg_port_input = "5432",
                   adbpg_database_input='aigcpostgres', adbpg_user_input='aigcpostgres', adbpg_pwd_input='alibabacloud666!')
 
-from langchain.chains import RetrievalQA
-qa = RetrievalQA.from_chain_type(
-            # llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
-            llm=llmLlama2,
-            chain_type="stuff",
-            retriever=retriever,
-            return_source_documents=True
-        )
-query = question
-result = qa({'query': query})
-print(result)
+# from langchain.chains import RetrievalQA
+# qa = RetrievalQA.from_chain_type(
+#             # llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
+#             llm=llmLlama2,
+#             chain_type="stuff",
+#             retriever=retriever,
+#             return_source_documents=True
+#         )
+# query = question
+# result = qa({'query': query})
+# print(result)
 
+from langchain.chains import ConversationalRetrievalChain
 
+chain = ConversationalRetrievalChain.from_llm(llmLlama2, retriever, return_source_documents=True)
+query = "What is Data lakehouse architecture in Databricks?"
+result = chain({"question": query})
+
+print(result['answer'])
