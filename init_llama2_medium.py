@@ -103,5 +103,35 @@ prompt = PromptTemplate(template=template, input_variables=["question"])
 
 question = "Write a linear regression in python"
 llm_chain = LLMChain(prompt=prompt, llm=llmLlama2)
-
 print(llm_chain.run(question))
+
+from src.helpers.utils import setup
+
+fp = "test.pdf"
+
+ALLOW_MULTIPLE_FILES = False
+ALLOWED_FILE_EXTENSION = 'pdf'
+EXCERPT_LENGTH = 300
+VERTICAL_SPACING = 2
+NUMBER_OF_RELEVANT_CHUNKS = 2
+CHAIN_TYPE = 'stuff'
+WIDTH = "50"
+HEIGHT = "60"
+
+retriever = setup(file=fp, number_of_relevant_chunk=NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
+                  adbpg_host_input="gp-gs542mu10391602x7o-master.gpdbmaster.singapore.rds.aliyuncs.com", adbpg_port_input = "5432",
+                  adbpg_database_input='aigcpostgres', adbpg_user_input='aigcpostgres', adbpg_pwd_input='alibabacloud666!')
+
+from langchain.chains import RetrievalQA
+qa = RetrievalQA.from_chain_type(
+            # llm=OpenAI(openai_api_key = open_ai_token, model_name="gpt-3.5-turbo-16k"),
+            llm=llmLlama2,
+            chain_type="stuff",
+            retriever=retriever,
+            return_source_documents=True
+        )
+query = question
+result = qa({'query': query})
+print(result)
+
+
