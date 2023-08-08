@@ -1,7 +1,7 @@
 #!/bin/bash\n
 # oss and model file
-sudo -v ; curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
-ossutil cp -r oss://aigcsg/models--TheBloke--Llama-2-13B-chat-GGML /root/.cache/huggingface/hub/
+#sudo -v ; curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
+#ossutil cp -r oss://aigcsg/models--TheBloke--Llama-2-13B-chat-GGML /root/.cache/huggingface/hub/
 
 # upgrade python
 
@@ -32,7 +32,7 @@ apt-get update && apt-get install apt-utils && apt-get install -y --no-install-r
 #wget --quiet -O - https://www.postgresql.org/sudo apt install postgresql postgresql-contribmedia/keys/ACCC4CF8.asc | apt-key add - && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list'&&
 #apt-get update && apt-get install postgresql postgresql-contrib -y
 
-apt install libpq-dev # for pgconfig
+apt install libpq-dev -y # for pgconfig
 
 apt update && apt install git -y && apt install unzip -y && apt install docker-compose -y && apt install postgresql -y
 

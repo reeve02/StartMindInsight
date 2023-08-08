@@ -28,7 +28,6 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     config=model_config,
     quantization_config=bnb_config,
     device_map='auto',
-    load_in_8bit_fp32_cpu_offload=True,
     use_auth_token=hf_auth
 )
 
@@ -84,7 +83,7 @@ print(res[0]["generated_text"])
 
 from langchain.embeddings import HuggingFaceEmbeddings
 
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
+embeddingsllama2 = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
 from langchain.llms import HuggingFacePipeline
 
