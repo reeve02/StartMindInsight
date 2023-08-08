@@ -1,4 +1,9 @@
+import os
+
 from langchain import LLMChain, PromptTemplate
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import AnalyticDB
 from torch import cuda, bfloat16
 import transformers
 
@@ -118,7 +123,35 @@ CHAIN_TYPE = 'stuff'
 WIDTH = "50"
 HEIGHT = "60"
 
-retriever = setup(file=fp, number_of_relevant_chunk=NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
+file=fp
+loader = PyPDFLoader(file)
+def transform_document_into_chunks(document):
+    """Transform document into chunks of {1000} tokens"""
+    splitter = CharacterTextSplitter(
+        chunk_size=int(os.environ.get('CHUNK_SIZE', 500)),
+        chunk_overlap=int(os.environ.get('CHUNK_OVERLAP', 0))
+    )
+    return splitter.split_documents(document)
+
+def transform_chunks_into_embeddings(text, k , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) :
+    """Transform chunks into embeddings"""
+    CONNECTION_STRING = AnalyticDB.connection_string_from_db_params(
+        driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
+        host=os.environ.get("PG_HOST", adbpg_host_input),
+        port=int(os.environ.get("PG_PORT", adbpg_port_input)),
+        database=os.environ.get("PG_DATABASE", adbpg_database_input),
+        user=os.environ.get("PG_USER", adbpg_user_input),
+        password=os.environ.get("PG_PASSWORD", adbpg_pwd_input),
+    )
+
+    # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
+    embeddings = embeddingsllama2
+
+    db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
+    return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
+
+chunks = transform_document_into_chunks(loader.load())
+retriever = transform_chunks_into_embeddings(chunks, number_of_relevant_chunk=NUMBER_OF_RELEVANT_CHUNKS, open_ai_token="open_api_token_global",
                   adbpg_host_input="gp-gs542mu10391602x7o-master.gpdbmaster.singapore.rds.aliyuncs.com", adbpg_port_input = "5432",
                   adbpg_database_input='aigcpostgres', adbpg_user_input='aigcpostgres', adbpg_pwd_input='alibabacloud666!')
 
