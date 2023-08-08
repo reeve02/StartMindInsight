@@ -1,4 +1,5 @@
 import os
+from __future__ import annotations
 import pprint
 from tempfile import NamedTemporaryFile
 from typing import Any
