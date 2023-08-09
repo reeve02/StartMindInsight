@@ -102,7 +102,7 @@ def create_app(config_name):
                         all_refs += ref
                     st.session_state.source.append(all_refs)
                 st.session_state.past.append(st.session_state.user_input)
-                st.session_state.generated.append(response['result'])
+                st.session_state.generated.append(response['answer'])
             if st.session_state.generated:
                 for i in range(len(st.session_state.generated)):
                     message(st.session_state.past[i], is_user=True, key=str(i) + '_user', avatar_style='micah')
