@@ -55,10 +55,10 @@ def generate_response(query: str, chain_type: str, retriever: VectorStoreRetriev
         # )
         # result = qa({'query': query})
         # pprint.pprint(result)
-
+        chat_history = []
         qa = ConversationalRetrievalChain.from_llm(llmLlama2, retriever, return_source_documents=True)
         # query = "who is david haidong chen"
-        result = qa({"question": query})
+        result = qa({"question": query, "chat_history": chat_history})
         pprint.pprint(result)
 
     return result

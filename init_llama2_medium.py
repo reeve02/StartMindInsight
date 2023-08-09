@@ -88,7 +88,7 @@ generate_text = transformers.pipeline(
 
 from langchain.embeddings import HuggingFaceEmbeddings
 
-embeddingsllama2 = HuggingFaceEmbeddings(model_name="NousResearch/Nous-Hermes-llama-2-7b") # working is sentence-transformers/all-mpnet-base-v2 , trying full length embedding
+embeddingsllama2 = HuggingFaceEmbeddings(model_name="sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja") # working is sentence-transformers/all-mpnet-base-v2 , trying full length embedding
 
 from langchain.llms import HuggingFacePipeline
 
@@ -168,9 +168,9 @@ retriever = transform_chunks_into_embeddings(chunks, NUMBER_OF_RELEVANT_CHUNKS, 
 # print(result)
 
 from langchain.chains import ConversationalRetrievalChain
-
+chat_history = []
 chain = ConversationalRetrievalChain.from_llm(llmLlama2, retriever, return_source_documents=True)
 query = "who is david haidong chen"
-result = chain({"question": query})
+result = chain({"question": query, "chat_history": chat_history})
 
 print(result['answer'])
