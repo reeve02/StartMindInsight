@@ -13,14 +13,14 @@ from langchain.schema import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.vectorstores.base import VectorStoreRetriever
-from langchain.llms import Tongyi
+# from langchain.llms import Tongyi
 
 import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
 
 from init_llama2_medium import llmLlama2, embeddingsllama2
 
-my_openai_api_key = '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'
+my_openai_api_key = 'something'
 
 
 
