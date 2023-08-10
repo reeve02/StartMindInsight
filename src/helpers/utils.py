@@ -90,7 +90,7 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     embeddings = embeddingsllama2
 
-    db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
+    db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING, embedding_dimension=716)
     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
 def get_file_path(file) -> str:

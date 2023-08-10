@@ -7,8 +7,8 @@ from langchain.vectorstores import AnalyticDB
 from torch import cuda, bfloat16
 import transformers
 
-model_id = 'NousResearch/Nous-Hermes-llama-2-7b' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
-
+model_id = 'daryl149/llama-2-7b-chat-hf' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
+# full size workding model : NousResearch/Nous-Hermes-llama-2-7b
 device = f'cuda:{cuda.current_device()}' if cuda.is_available() else 'cpu'
 
 # set quantization configuration to load large model with less GPU memory
@@ -88,8 +88,8 @@ generate_text = transformers.pipeline(
 
 from langchain.embeddings import HuggingFaceEmbeddings
 
-embeddingsllama2 = HuggingFaceEmbeddings(model_name="sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja") # working is sentence-transformers/all-mpnet-base-v2 , trying full length embedding
-
+embeddingsllama2 = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2") # working is sentence-transformers/all-mpnet-base-v2 , trying full length embedding
+# full size working embedding: sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja
 from langchain.llms import HuggingFacePipeline
 
 llmLlama2 = HuggingFacePipeline(pipeline=generate_text)
