@@ -19,6 +19,7 @@ import psycopg2cffi
 from langchain.vectorstores.analyticdb import AnalyticDB
 
 from init_llama2_medium import llmLlama2, embeddingsllama2
+from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
 
 my_openai_api_key = 'something'
 
@@ -78,7 +79,7 @@ def transform_document_into_chunks(document: list[Document]) -> list[Document]:
 
 def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) -> VectorStoreRetriever:
     """Transform chunks into embeddings"""
-    CONNECTION_STRING = AnalyticDB.connection_string_from_db_params(
+    CONNECTION_STRING = AnalyticDBhaidong.connection_string_from_db_params(
         driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
         host=os.environ.get("PG_HOST", adbpg_host_input),
         port=int(os.environ.get("PG_PORT", adbpg_port_input)),
@@ -90,7 +91,7 @@ def transform_chunks_into_embeddings(text: list[Document], k: int , open_ai_toke
     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     embeddings = embeddingsllama2
 
-    db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING, embedding_dimension=768)
+    db = AnalyticDBhaidong.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
 def get_file_path(file) -> str:

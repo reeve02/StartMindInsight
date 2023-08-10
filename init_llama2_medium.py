@@ -3,9 +3,11 @@ import os
 from langchain import LLMChain, PromptTemplate
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import AnalyticDB
+# from langchain.vectorstores import AnalyticDB
 from torch import cuda, bfloat16
 import transformers
+
+from src.helpers.Analyticdbhaidong import AnalyticDBhaidong
 
 model_id = 'daryl149/llama-2-7b-chat-hf' # daryl149/llama-2-7b-chat-hf working but half break the vectorstore LinkSoul/Chinese-Llama-2-7b NousResearch/Nous-Hermes-llama-2-7b
 # full size workding model : NousResearch/Nous-Hermes-llama-2-7b
@@ -135,7 +137,7 @@ def transform_document_into_chunks(document):
 
 def transform_chunks_into_embeddings(text, k , open_ai_token , adbpg_host_input, adbpg_port_input, adbpg_database_input, adbpg_user_input, adbpg_pwd_input) :
     """Transform chunks into embeddings"""
-    CONNECTION_STRING = AnalyticDB.connection_string_from_db_params(
+    CONNECTION_STRING = AnalyticDBhaidong.connection_string_from_db_params(
         driver=os.environ.get("PG_DRIVER", "psycopg2cffi"),
         host=os.environ.get("PG_HOST", adbpg_host_input),
         port=int(os.environ.get("PG_PORT", adbpg_port_input)),
@@ -147,7 +149,7 @@ def transform_chunks_into_embeddings(text, k , open_ai_token , adbpg_host_input,
     # embeddings = OpenAIEmbeddings(openai_api_key = open_ai_token)
     embeddings = embeddingsllama2
 
-    db = AnalyticDB.from_documents(text, embeddings, connection_string=CONNECTION_STRING, embedding_dimension=768)
+    db = AnalyticDBhaidong.from_documents(text, embeddings, connection_string=CONNECTION_STRING)
     return db.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
 chunks = transform_document_into_chunks(loader.load())
