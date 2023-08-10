@@ -13,8 +13,9 @@ def create_app(config_name):
                        page_icon='🤖', layout='centered', initial_sidebar_state='auto')
     st.header(cf.TITLE)
 
-    open_api_token_global = st.text_input('your openai token', 'sk-IDOQ7C1GlnSOdWhahahahaBlbkFJP8wtjnQOsPtSlZTHlfft')
-    st.write('The current chatgpt api token is', open_api_token_global)
+    open_api_token_global = "something"
+    # open_api_token_global = st.text_input('your openai token', 'something')
+    # st.write('The current chatgpt api token is', open_api_token_global)
 
     #  adbpg_user_input, adbpg_pwd_input
     # # Returns `None` if the key doesn't exist
@@ -25,16 +26,22 @@ def create_app(config_name):
     adbpg_user = os.environ.get('PG_USER', 'aigcpostgres')
     adbpg_passwd = os.environ.get('PG_PASSWORD', 'alibabacloud666!')
 
-    adbpg_host_input_global = st.text_input('your adbpg_host', conn_string)
-    st.write('The current adbpg_host_input', adbpg_host_input_global)
-    adbpg_port_input_global = st.text_input('your adbpg_port', conn_port)
-    st.write('The current adbpg_port is', adbpg_port_input_global)
-    adbpg_database_input_global = st.text_input('your adbpg_database', adbpg_database)
-    st.write('The current adbpg_database is', adbpg_database_input_global)
-    adbpg_user_input_global = st.text_input('your adbpg_user', adbpg_user)
-    st.write('The current adbpg_user is', adbpg_user_input_global)
-    adbpg_pwd_input_global = st.text_input('your adbpg_pwd', adbpg_passwd)
-    st.write('The current adbpg_pwd is', adbpg_pwd_input_global)
+    adbpg_host_input_global = ""
+    adbpg_port_input_global = ""
+    adbpg_database_input_global = ""
+    adbpg_user_input_global = ""
+    adbpg_pwd_input_global = ""
+
+    # adbpg_host_input_global = st.text_input('your adbpg_host', conn_string)
+    # st.write('The current adbpg_host_input', adbpg_host_input_global)
+    # adbpg_port_input_global = st.text_input('your adbpg_port', conn_port)
+    # st.write('The current adbpg_port is', adbpg_port_input_global)
+    # adbpg_database_input_global = st.text_input('your adbpg_database', adbpg_database)
+    # st.write('The current adbpg_database is', adbpg_database_input_global)
+    # adbpg_user_input_global = st.text_input('your adbpg_user', adbpg_user)
+    # st.write('The current adbpg_user is', adbpg_user_input_global)
+    # adbpg_pwd_input_global = st.text_input('your adbpg_pwd', adbpg_passwd)
+    # st.write('The current adbpg_pwd is', adbpg_pwd_input_global)
 
     # we need a way to remember the chat history
     if 'user_input' not in st.session_state:
