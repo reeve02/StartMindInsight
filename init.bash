@@ -3,7 +3,7 @@
 rm -rf /etc/environmentadb \n
 cat >> /etc/environmentadb << \"EOF\" \n
 PG_HOST=${DBConnectString} \n
-PG_PORT=5432 \n
+PG_PORT="5432" \n
 PG_DATABASE=${DBMasterUserName} \n
 PG_USER=${DBMasterUserName} \n
 PG_PASSWORD=\"${DBMasterPassword}\"\n

@@ -4,14 +4,49 @@ from streamlit_chat import message
 from streamlit_extras.colored_header import colored_header
 from config.default import config
 from src.helpers.utils import get_text, setup, get_file_path, generate_response
+import altair as alt
+from streamlit import config as st_config
+from streamlit_option_menu import option_menu
+from PIL import Image
 import os
 open_api_token_global = ""
 def create_app(config_name):
     """Create a streamlit app"""
     cf = config[config_name]
-    st.set_page_config(page_title='haidongGPT from pdf',
-                       page_icon='🤖', layout='centered', initial_sidebar_state='auto')
+    st.set_page_config(page_title='StartMind Insight',
+                       page_icon='🤖', 
+                       layout='wide',
+                       initial_sidebar_state='auto')
     st.header(cf.TITLE)
+
+    with st.sidebar:
+        # Add an image to the sidebar
+        sidebar_image = "./src/Test.png"  # Provide the path to your image file
+        st.image(sidebar_image, width=300)
+        selected_navbar_menu = option_menu(
+            menu_title='Menu',
+            options=['Get Insight', 'Dashboard', 'About Us'],
+            icons=['lightbulb-fill', 'graph-up-arrow','person-circle'],
+            menu_icon='cast',
+            default_index=0,
+            orientation='vertical',
+            styles={'nav-link': {'--hover-color': '#bdb6ff',
+                                 '--active-background-color': '#010970'},
+                    'nav-link-selected': {'background-color': '#010970'},
+                    })
+
+        
+        
+        sidebar_image_2 = "./src/pic.png"  # Provide the path to your image file
+        st.image(sidebar_image_2, width=300)
+        st.markdown('<hr>', unsafe_allow_html=True)
+        st.markdown("""
+                    Developed by:  
+                    Startup Intellect
+                    """)
+        st.caption('This project is supported by Alibaba Cloud')
+        
+        
 
     open_api_token_global = "something"
     # open_api_token_global = st.text_input('your openai token', 'something')
@@ -58,6 +93,9 @@ def create_app(config_name):
     *---------------------------------------*-----------------------------------------------------*
                                   ****Utility method****
     """
+
+    st.markdown("Please provide relevant input data, such as portfolio details or any other information you'd like to inquire about.")
+
     def submit():
         st.session_state.user_input = st.session_state.widget
         st.session_state.widget = ''
